@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profesores{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Profesores</h1>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Especialidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for teacher in teachers %}
+                <tr>
+                    <td>{{ teacher.id }}</td>
+                    <td>{{ teacher.name }}</td>
+                    <td>{{ teacher.email }}</td>
+                    <td>{{ teacher.phone }}</td>
+                    <td>{{ teacher.specialty }}</td>
+                    <td>
+                        <a href="{{ path('app_teacher_show', {'id': teacher.id}) }}" class="btn btn-sm btn-info">Ver</a>
+                        <a href="{{ path('app_teacher_edit', {'id': teacher.id}) }}" class="btn btn-sm btn-warning">Editar</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">No hay profesores registrados</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_teacher_new') }}" class="btn btn-primary">Crear Nuevo Profesor</a>
+    </div>
+{% endblock %}

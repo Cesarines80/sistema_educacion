@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear Nueva Materia{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Crear Nueva Materia</h1>
+
+        {{ include('subject/_form.html.twig') }}
+
+        <a href="{{ path('app_subject_index') }}" class="btn btn-secondary">Volver al listado</a>
+    </div>
+{% endblock %}

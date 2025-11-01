@@ -1,0 +1,43 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Calificación: {{ grade.grade }}{% endblock %}
+
+{% block breadcrumb %}Calificación: {{ grade.grade }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Detalles de la Calificación</h3>
+                <div class="card-tools">
+                    <a href="{{ path('app_grade_index') }}" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-arrow-left"></i> Volver a la Lista
+                    </a>
+                    <a href="{{ path('app_grade_edit', {'id': grade.id}) }}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">ID</dt>
+                    <dd class="col-sm-9">{{ grade.id }}</dd>
+
+                    <dt class="col-sm-3">Calificación</dt>
+                    <dd class="col-sm-9">{{ grade.grade }}</dd>
+
+                    <dt class="col-sm-3">Estudiante</dt>
+                    <dd class="col-sm-9">{{ grade.student.user.name }}</dd>
+
+                    <dt class="col-sm-3">Sección</dt>
+                    <dd class="col-sm-9">{{ grade.section.name }}</dd>
+
+                    <dt class="col-sm-3">Fecha</dt>
+                    <dd class="col-sm-9">{{ grade.date ? grade.date|date('d/m/Y') : '' }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

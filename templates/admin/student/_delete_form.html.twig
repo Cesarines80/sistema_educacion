@@ -1,0 +1,25 @@
+<form method="post" action="{{ path('app_student_delete', {'id': student.id}) }}" id="delete-form-{{ student.id }}" style="display: inline;">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ student.id) }}">
+    <button class="btn btn-danger btn-sm" type="button" onclick="confirmDelete({{ student.id }}, '{{ student.user.email }}')">
+        <i class="fas fa-trash"></i> Eliminar
+    </button>
+</form>
+
+<script>
+function confirmDelete(studentId, studentEmail) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: `¿Quieres eliminar al estudiante "${studentEmail}"? Esta acción no se puede deshacer.`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('delete-form-' + studentId).submit();
+        }
+    });
+}
+</script>

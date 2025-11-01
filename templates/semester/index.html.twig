@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Semestres{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Semestres</h1>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                    <th>Activo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for semester in semesters %}
+                <tr>
+                    <td>{{ semester.id }}</td>
+                    <td>{{ semester.name }}</td>
+                    <td>{{ semester.startDate ? semester.startDate|date('d/m/Y') : '' }}</td>
+                    <td>{{ semester.endDate ? semester.endDate|date('d/m/Y') : '' }}</td>
+                    <td>{{ semester.isActive ? 'Sí' : 'No' }}</td>
+                    <td>
+                        <a href="{{ path('app_semester_show', {'id': semester.id}) }}" class="btn btn-sm btn-info">Ver</a>
+                        <a href="{{ path('app_semester_edit', {'id': semester.id}) }}" class="btn btn-sm btn-warning">Editar</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">No hay semestres registrados</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_semester_new') }}" class="btn btn-primary">Crear Nuevo Semestre</a>
+    </div>
+{% endblock %}

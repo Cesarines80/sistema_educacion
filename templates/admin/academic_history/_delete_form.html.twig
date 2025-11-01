@@ -1,0 +1,6 @@
+<form method="post" action="{{ path('app_academic_history_delete', {'id': academic_history.id}) }}" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este registro de historial académico?');" style="display: inline-block;">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ academic_history.id) }}">
+    <button class="btn btn-danger btn-sm">
+        <i class="fas fa-trash"></i> Eliminar
+    </button>
+</form>

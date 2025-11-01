@@ -1,0 +1,47 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Materia: {{ subject.name }}{% endblock %}
+
+{% block breadcrumb %}Materia: {{ subject.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Detalles de la Materia</h3>
+                <div class="card-tools">
+                    <a href="{{ path('app_subject_index') }}" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-arrow-left"></i> Volver a la Lista
+                    </a>
+                    <a href="{{ path('app_subject_edit', {'id': subject.id}) }}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">ID</dt>
+                    <dd class="col-sm-9">{{ subject.id }}</dd>
+
+                    <dt class="col-sm-3">Nombre</dt>
+                    <dd class="col-sm-9">{{ subject.name }}</dd>
+
+                    <dt class="col-sm-3">Descripción</dt>
+                    <dd class="col-sm-9">{{ subject.description }}</dd>
+
+                    <dt class="col-sm-3">Créditos</dt>
+                    <dd class="col-sm-9">{{ subject.credits }}</dd>
+
+                    <dt class="col-sm-3">Grados Académicos</dt>
+                    <dd class="col-sm-9">
+                        {% for academicGrade in subject.academicGrades %}
+                            <span class="badge badge-primary">{{ academicGrade.name }}</span>
+                        {% endfor %}
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

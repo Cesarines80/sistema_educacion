@@ -1,0 +1,73 @@
+{% extends 'student/base_student.html.twig' %}
+
+{% block title %}Historial Académico{% endblock %}
+
+{% block breadcrumb %}Historial Académico{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Mi Historial Académico</h3>
+            </div>
+            <div class="card-body table-responsive p-0">
+                <table id="academicHistoryTable" class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Calificación Final</th>
+                            <th>Estado</th>
+                            <th>Semestre</th>
+                            <th>Materia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for academic_history in academic_histories %}
+                        <tr>
+                            <td>{{ academic_history.id }}</td>
+                            <td>{{ academic_history.finalGrade }}</td>
+                            <td>{{ academic_history.status }}</td>
+                            <td>{{ academic_history.semester.name }}</td>
+                            <td>{{ academic_history.subject.name }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center">No hay registros de historial académico</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+$(document).ready(function() {
+    $('#academicHistoryTable').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fas fa-file-excel"></i> Excel',
+                title: 'Historial Académico',
+                className: 'btn btn-success btn-sm'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fas fa-file-pdf"></i> PDF',
+                title: 'Historial Académico',
+                className: 'btn btn-danger btn-sm'
+            }
+        ]
+    });
+});
+</script>
+{% endblock %}

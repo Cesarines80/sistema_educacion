@@ -1,0 +1,46 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Historial Académico: {{ academic_history.student.user.name }}{% endblock %}
+
+{% block breadcrumb %}Historial Académico: {{ academic_history.student.user.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Detalles del Historial Académico</h3>
+                <div class="card-tools">
+                    <a href="{{ path('app_academic_history_index') }}" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-arrow-left"></i> Volver a la Lista
+                    </a>
+                    <a href="{{ path('app_academic_history_edit', {'id': academic_history.id}) }}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">ID</dt>
+                    <dd class="col-sm-9">{{ academic_history.id }}</dd>
+
+                    <dt class="col-sm-3">Calificación</dt>
+                    <dd class="col-sm-9">{{ academic_history.grade }}</dd>
+
+                    <dt class="col-sm-3">Estado</dt>
+                    <dd class="col-sm-9">{{ academic_history.status }}</dd>
+
+                    <dt class="col-sm-3">Estudiante</dt>
+                    <dd class="col-sm-9">{{ academic_history.student.user.name }}</dd>
+
+                    <dt class="col-sm-3">Semestre</dt>
+                    <dd class="col-sm-9">{{ academic_history.semester.name }}</dd>
+
+                    <dt class="col-sm-3">Materia</dt>
+                    <dd class="col-sm-9">{{ academic_history.subject.name }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

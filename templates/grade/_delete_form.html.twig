@@ -1,0 +1,23 @@
+<form method="post" action="{{ path('app_grade_delete', {'id': grade.id}) }}" id="delete-form-{{ grade.id }}">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ grade.id) }}">
+    <button class="btn btn-danger" type="button" onclick="confirmDelete({{ grade.id }}, 'Calificación ID {{ grade.id }}')">Eliminar</button>
+</form>
+
+<script>
+function confirmDelete(gradeId, gradeInfo) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: `¿Quieres eliminar la calificación "${gradeInfo}"? Esta acción no se puede deshacer.`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('delete-form-' + gradeId).submit();
+        }
+    });
+}
+</script>

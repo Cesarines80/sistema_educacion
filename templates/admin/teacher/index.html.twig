@@ -1,0 +1,111 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Profesores{% endblock %}
+
+{% block breadcrumb %}Profesores{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Lista de Profesores</h3>
+                <div class="card-tools">
+                    <a href="{{ path('app_teacher_new') }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus"></i> Nuevo Profesor
+                    </a>
+                </div>
+            </div>
+            <div class="card-body table-responsive p-0">
+                <table id="teachersTable" class="table table-hover table-striped text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Materias</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for teacher in teachers %}
+                        <tr>
+                            <td>{{ teacher.id }}</td>
+                            <td>{{ teacher.name }}</td>
+                            <td>{{ teacher.email }}</td>
+                            <td>{{ teacher.phone }}</td>
+                            <td>
+                                {% for subject in teacher.subjects %}
+                                    {{ subject.name }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <a href="{{ path('app_teacher_show', {'id': teacher.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye"></i> Ver
+                                </a>
+                                <a href="{{ path('app_teacher_edit', {'id': teacher.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                {{ include('admin/teacher/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">No hay profesores registrados</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+function confirmDeleteTeacher(teacherId, teacherEmail) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: `¿Quieres eliminar al docente "${teacherEmail}"? Esta acción no se puede deshacer.`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('delete-form-' + teacherId).submit();
+        }
+    });
+}
+
+$(document).ready(function() {
+    $('#teachersTable').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
+        },
+        dom: 'lBfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fas fa-file-excel"></i> Excel',
+                title: 'Profesores',
+                className: 'btn btn-success btn-sm'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fas fa-file-pdf"></i> PDF',
+                title: 'Profesores',
+                className: 'btn btn-danger btn-sm'
+            }
+        ],
+        "pageLength": 10,
+        "lengthMenu": [10, 25, 50, 100]
+    });
+});
+</script>
+{% endblock %}

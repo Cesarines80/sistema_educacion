@@ -1,0 +1,20 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Nuevo Grado Académico{% endblock %}
+
+{% block breadcrumb %}Nuevo Grado Académico{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Crear Nuevo Grado Académico</h3>
+            </div>
+            <div class="card-body">
+                {{ include('admin/academic_grade/_form.html.twig', {'button_label': 'Crear'}) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

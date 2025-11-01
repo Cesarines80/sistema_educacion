@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Historial Académico{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Historial Académico</h1>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Calificación</th>
+                    <th>Estado</th>
+                    <th>Estudiante</th>
+                    <th>Semestre</th>
+                    <th>Materia</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for academic_history in academic_histories %}
+                <tr>
+                    <td>{{ academic_history.id }}</td>
+                    <td>{{ academic_history.grade }}</td>
+                    <td>{{ academic_history.status }}</td>
+                    <td>{{ academic_history.student.name }}</td>
+                    <td>{{ academic_history.semester.name }}</td>
+                    <td>{{ academic_history.subject.name }}</td>
+                    <td>
+                        <a href="{{ path('app_academic_history_show', {'id': academic_history.id}) }}" class="btn btn-sm btn-info">Ver</a>
+                        <a href="{{ path('app_academic_history_edit', {'id': academic_history.id}) }}" class="btn btn-sm btn-warning">Editar</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">No hay registros de historial académico</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_academic_history_new') }}" class="btn btn-primary">Crear Nuevo Registro</a>
+    </div>
+{% endblock %}

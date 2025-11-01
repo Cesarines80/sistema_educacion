@@ -1,0 +1,25 @@
+<form method="post" action="{{ path('app_subject_delete', {'id': subject.id}) }}" id="delete-form-{{ subject.id }}" style="display: inline;">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ subject.id) }}">
+    <button class="btn btn-danger btn-sm" type="button" onclick="confirmDelete({{ subject.id }}, '{{ subject.name }}')">
+        <i class="fas fa-trash"></i> Eliminar
+    </button>
+</form>
+
+<script>
+function confirmDelete(subjectId, subjectName) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: `¿Quieres eliminar la materia "${subjectName}"? Esta acción no se puede deshacer.`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('delete-form-' + subjectId).submit();
+        }
+    });
+}
+</script>

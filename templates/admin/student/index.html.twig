@@ -1,0 +1,92 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Estudiantes{% endblock %}
+
+{% block breadcrumb %}Estudiantes{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Lista de Estudiantes</h3>
+                <div class="card-tools">
+                    <a href="{{ path('app_student_new') }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus"></i> Nuevo Estudiante
+                    </a>
+                </div>
+            </div>
+            <div class="card-body table-responsive p-0">
+                <table id="studentsTable" class="table table-hover table-striped text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Grado Académico</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for student in students %}
+                        <tr>
+                            <td>{{ student.id }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>{{ student.email }}</td>
+                            <td>{{ student.phone }}</td>
+                            <td>{{ student.birthDate ? student.birthDate|date('Y-m-d') : '' }}</td>
+                            <td>{{ student.academicGrade ? student.academicGrade.name : '' }}</td>
+                            <td>
+                                <a href="{{ path('app_student_show', {'id': student.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye"></i> Ver
+                                </a>
+                                <a href="{{ path('app_student_edit', {'id': student.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                {{ include('admin/student/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center">No hay estudiantes registrados</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+$(document).ready(function() {
+    $('#studentsTable').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
+        },
+        dom: 'lBfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fas fa-file-excel"></i> Excel',
+                title: 'Estudiantes',
+                className: 'btn btn-success btn-sm'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fas fa-file-pdf"></i> PDF',
+                title: 'Estudiantes',
+                className: 'btn btn-danger btn-sm'
+            }
+        ],
+        "pageLength": 10,
+        "lengthMenu": [10, 25, 50, 100]
+    });
+});
+</script>
+{% endblock %}

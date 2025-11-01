@@ -1,0 +1,73 @@
+{% extends 'student/base_student.html.twig' %}
+
+{% block title %}Mis Notas{% endblock %}
+
+{% block breadcrumb %}Mis Notas{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Mis Calificaciones</h3>
+            </div>
+            <div class="card-body table-responsive p-0">
+                <table id="gradesTable" class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Calificación</th>
+                            <th>Fecha</th>
+                            <th>Comentarios</th>
+                            <th>Sección</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for grade in grades %}
+                        <tr>
+                            <td>{{ grade.id }}</td>
+                            <td>{{ grade.score }}</td>
+                            <td>{{ grade.date ? grade.date|date('d/m/Y') : '' }}</td>
+                            <td>{{ grade.comments }}</td>
+                            <td>{{ grade.section.name }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center">No hay calificaciones registradas</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+$(document).ready(function() {
+    $('#gradesTable').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fas fa-file-excel"></i> Excel',
+                title: 'Mis Notas',
+                className: 'btn btn-success btn-sm'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fas fa-file-pdf"></i> PDF',
+                title: 'Mis Notas',
+                className: 'btn btn-danger btn-sm'
+            }
+        ]
+    });
+});
+</script>
+{% endblock %}

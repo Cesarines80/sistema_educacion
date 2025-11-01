@@ -1,0 +1,34 @@
+{% extends 'student/base_student.html.twig' %}
+
+{% block title %}Panel del Estudiante{% endblock %}
+
+{% block breadcrumb %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ academic_histories|length }}</h3>
+                <p>Historial Académico</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-book"></i>
+            </div>
+            <a href="{{ path('app_student_academic_history') }}" class="small-box-footer">Ver más <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>{{ grades|length }}</h3>
+                <p>Mis Notas</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <a href="{{ path('app_student_grades') }}" class="small-box-footer">Ver más <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>
+{% endblock %}

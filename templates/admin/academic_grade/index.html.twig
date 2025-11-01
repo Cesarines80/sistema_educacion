@@ -1,0 +1,91 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Grados Académicos{% endblock %}
+
+{% block breadcrumb %}Grados Académicos{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Lista de Grados Académicos</h3>
+                <div class="card-tools">
+                    <a href="{{ path('app_academic_grade_new') }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus"></i> Nuevo Grado Académico
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="academic-grade-table" class="table table-hover text-nowrap table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Materias</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for academic_grade in academic_grades %}
+                        <tr>
+                            <td>{{ academic_grade.id }}</td>
+                            <td>{{ academic_grade.name }}</td>
+                            <td>{{ academic_grade.description }}</td>
+                            <td>
+                                {% for subject in academic_grade.subjects %}
+                                    <span class="badge badge-info">{{ subject.name }}</span>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <a href="{{ path('app_academic_grade_show', {'id': academic_grade.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye"></i> Ver
+                                </a>
+                                <a href="{{ path('app_academic_grade_edit', {'id': academic_grade.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                {{ include('admin/academic_grade/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center">No hay grados académicos registrados</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+$(document).ready(function() {
+    $('#academic-grade-table').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
+        },
+        dom: 'lBfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fas fa-file-excel"></i> Excel',
+                title: 'Grados Académicos',
+                className: 'btn btn-success btn-sm'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fas fa-file-pdf"></i> PDF',
+                title: 'Grados Académicos',
+                className: 'btn btn-danger btn-sm'
+            }
+        ],
+        "pageLength": 10,
+        "lengthMenu": [10, 25, 50, 100]
+    });
+});
+</script>
+{% endblock %}

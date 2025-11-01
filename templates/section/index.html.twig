@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Secciones{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Secciones</h1>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Capacidad</th>
+                    <th>Materia</th>
+                    <th>Profesor</th>
+                    <th>Semestre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for section in sections %}
+                <tr>
+                    <td>{{ section.id }}</td>
+                    <td>{{ section.name }}</td>
+                    <td>{{ section.capacity }}</td>
+                    <td>{{ section.subject.name }}</td>
+                    <td>{{ section.teacher.name }}</td>
+                    <td>{{ section.semester.name }}</td>
+                    <td>
+                        <a href="{{ path('app_section_show', {'id': section.id}) }}" class="btn btn-sm btn-info">Ver</a>
+                        <a href="{{ path('app_section_edit', {'id': section.id}) }}" class="btn btn-sm btn-warning">Editar</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">No hay secciones registradas</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_section_new') }}" class="btn btn-primary">Crear Nueva Sección</a>
+    </div>
+{% endblock %}

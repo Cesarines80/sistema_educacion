@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calificaciones{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Calificaciones</h1>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Calificación</th>
+                    <th>Estudiante</th>
+                    <th>Sección</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for grade in grades %}
+                <tr>
+                    <td>{{ grade.id }}</td>
+                    <td>{{ grade.value }}</td>
+                    <td>{{ grade.student.name }}</td>
+                    <td>{{ grade.section.name }}</td>
+                    <td>
+                        <a href="{{ path('app_grade_show', {'id': grade.id}) }}" class="btn btn-sm btn-info">Ver</a>
+                        <a href="{{ path('app_grade_edit', {'id': grade.id}) }}" class="btn btn-sm btn-warning">Editar</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">No hay calificaciones registradas</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_grade_new') }}" class="btn btn-primary">Crear Nueva Calificación</a>
+    </div>
+{% endblock %}

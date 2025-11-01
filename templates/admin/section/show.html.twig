@@ -1,0 +1,46 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Sección: {{ section.name }}{% endblock %}
+
+{% block breadcrumb %}Sección: {{ section.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Detalles de la Sección</h3>
+                <div class="card-tools">
+                    <a href="{{ path('app_section_index') }}" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-arrow-left"></i> Volver a la Lista
+                    </a>
+                    <a href="{{ path('app_section_edit', {'id': section.id}) }}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">ID</dt>
+                    <dd class="col-sm-9">{{ section.id }}</dd>
+
+                    <dt class="col-sm-3">Nombre</dt>
+                    <dd class="col-sm-9">{{ section.name }}</dd>
+
+                    <dt class="col-sm-3">Capacidad</dt>
+                    <dd class="col-sm-9">{{ section.capacity }}</dd>
+
+                    <dt class="col-sm-3">Materia</dt>
+                    <dd class="col-sm-9">{{ section.subject.name }}</dd>
+
+                    <dt class="col-sm-3">Profesor</dt>
+                    <dd class="col-sm-9">{{ section.teacher.user.name }}</dd>
+
+                    <dt class="col-sm-3">Semestre</dt>
+                    <dd class="col-sm-9">{{ section.semester.name }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Nuevo Usuario{% endblock %}
+
+{% block breadcrumb %}Nuevo Usuario{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Crear Nuevo Usuario</h3>
+                <div class="card-tools">
+                    <a href="{{ path('app_user_index') }}" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-arrow-left"></i> Volver a la Lista
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ include('admin/user/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

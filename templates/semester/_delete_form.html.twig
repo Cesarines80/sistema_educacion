@@ -1,0 +1,23 @@
+<form method="post" action="{{ path('app_semester_delete', {'id': semester.id}) }}" id="delete-form-{{ semester.id }}">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ semester.id) }}">
+    <button class="btn btn-danger" type="button" onclick="confirmDelete({{ semester.id }}, '{{ semester.name }}')">Eliminar</button>
+</form>
+
+<script>
+function confirmDelete(semesterId, semesterName) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: `¿Quieres eliminar el semestre "${semesterName}"? Esta acción no se puede deshacer.`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('delete-form-' + semesterId).submit();
+        }
+    });
+}
+</script>

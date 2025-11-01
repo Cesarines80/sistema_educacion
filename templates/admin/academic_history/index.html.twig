@@ -1,0 +1,92 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Historial Académico{% endblock %}
+
+{% block breadcrumb %}Historial Académico{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Lista de Historial Académico</h3>
+                <div class="card-tools">
+                    <a href="{{ path('app_academic_history_new') }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus"></i> Crear Nuevo
+                    </a>
+                </div>
+            </div>
+            <div class="card-body table-responsive p-0">
+                <table id="academicHistoriesTable" class="table table-hover table-striped text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Calificación</th>
+                            <th>Estado</th>
+                            <th>Estudiante</th>
+                            <th>Semestre</th>
+                            <th>Materia</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for academic_history in academic_histories %}
+                        <tr>
+                            <td>{{ academic_history.id }}</td>
+                            <td>{{ academic_history.grade }}</td>
+                            <td>{{ academic_history.status }}</td>
+                            <td>{{ academic_history.student.user.name }}</td>
+                            <td>{{ academic_history.semester.name }}</td>
+                            <td>{{ academic_history.subject.name }}</td>
+                            <td>
+                                <a href="{{ path('app_academic_history_show', {'id': academic_history.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye"></i> Ver
+                                </a>
+                                <a href="{{ path('app_academic_history_edit', {'id': academic_history.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                {{ include('admin/academic_history/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center">No hay registros de historial académico</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+$(document).ready(function() {
+    $('#academicHistoriesTable').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
+        },
+        dom: 'lBfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fas fa-file-excel"></i> Excel',
+                title: 'Historial Académico',
+                className: 'btn btn-success btn-sm'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fas fa-file-pdf"></i> PDF',
+                title: 'Historial Académico',
+                className: 'btn btn-danger btn-sm'
+            }
+        ],
+        "pageLength": 10,
+        "lengthMenu": [10, 25, 50, 100]
+    });
+});
+</script>
+{% endblock %}

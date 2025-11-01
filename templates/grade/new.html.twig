@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear Nueva Calificación{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Crear Nueva Calificación</h1>
+
+        {{ include('grade/_form.html.twig') }}
+
+        <a href="{{ path('app_grade_index') }}" class="btn btn-secondary">Volver al listado</a>
+    </div>
+{% endblock %}

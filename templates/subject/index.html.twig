@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Materias{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Materias</h1>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Créditos</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for subject in subjects %}
+                <tr>
+                    <td>{{ subject.id }}</td>
+                    <td>{{ subject.name }}</td>
+                    <td>{{ subject.description }}</td>
+                    <td>{{ subject.credits }}</td>
+                    <td>
+                        <a href="{{ path('app_subject_show', {'id': subject.id}) }}" class="btn btn-sm btn-info">Ver</a>
+                        <a href="{{ path('app_subject_edit', {'id': subject.id}) }}" class="btn btn-sm btn-warning">Editar</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">No hay materias registradas</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_subject_new') }}" class="btn btn-primary">Crear Nueva Materia</a>
+    </div>
+{% endblock %}

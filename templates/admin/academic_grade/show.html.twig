@@ -1,0 +1,51 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Ver Grado Académico{% endblock %}
+
+{% block breadcrumb %}Ver Grado Académico{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Detalles del Grado Académico</h3>
+                <div class="card-tools">
+                    <a href="{{ path('app_academic_grade_edit', {'id': academic_grade.id}) }}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                    <a href="{{ path('app_academic_grade_index') }}" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-list"></i> Volver a la lista
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>ID</th>
+                            <td>{{ academic_grade.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nombre</th>
+                            <td>{{ academic_grade.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Descripción</th>
+                            <td>{{ academic_grade.description }}</td>
+                        </tr>
+                        <tr>
+                            <th>Materias</th>
+                            <td>
+                                {% for subject in academic_grade.subjects %}
+                                    <span class="badge badge-info">{{ subject.name }}</span>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

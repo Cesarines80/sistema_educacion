@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear Nuevo Profesor{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Crear Nuevo Profesor</h1>
+
+        {{ include('teacher/_form.html.twig') }}
+
+        <a href="{{ path('app_teacher_index') }}" class="btn btn-secondary">Volver al listado</a>
+    </div>
+{% endblock %}

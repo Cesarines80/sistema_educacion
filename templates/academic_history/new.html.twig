@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear Nuevo Registro de Historial Académico{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Crear Nuevo Registro de Historial Académico</h1>
+
+        {{ include('academic_history/_form.html.twig') }}
+
+        <a href="{{ path('app_academic_history_index') }}" class="btn btn-secondary">Volver al listado</a>
+    </div>
+{% endblock %}

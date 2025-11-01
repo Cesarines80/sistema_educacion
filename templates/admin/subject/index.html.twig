@@ -1,0 +1,94 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Materias{% endblock %}
+
+{% block breadcrumb %}Materias{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Lista de Materias</h3>
+                <div class="card-tools">
+                    <a href="{{ path('app_subject_new') }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus"></i> Nueva Materia
+                    </a>
+                </div>
+            </div>
+            <div class="card-body table-responsive p-0">
+                <table id="subjectsTable" class="table table-hover table-striped text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Créditos</th>
+                            <th>Grados Académicos</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for subject in subjects %}
+                        <tr>
+                            <td>{{ subject.id }}</td>
+                            <td>{{ subject.name }}</td>
+                            <td>{{ subject.description }}</td>
+                            <td>{{ subject.credits }}</td>
+                            <td>
+                                {% for academicGrade in subject.academicGrades %}
+                                    <span class="badge badge-primary">{{ academicGrade.name }}</span>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <a href="{{ path('app_subject_show', {'id': subject.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye"></i> Ver
+                                </a>
+                                <a href="{{ path('app_subject_edit', {'id': subject.id}) }}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                {{ include('admin/subject/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">No hay materias registradas</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+$(document).ready(function() {
+    $('#subjectsTable').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
+        },
+        dom: 'lBfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fas fa-file-excel"></i> Excel',
+                title: 'Materias',
+                className: 'btn btn-success btn-sm'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fas fa-file-pdf"></i> PDF',
+                title: 'Materias',
+                className: 'btn btn-danger btn-sm'
+            }
+        ],
+        "pageLength": 10,
+        "lengthMenu": [10, 25, 50, 100]
+    });
+});
+</script>
+{% endblock %}
