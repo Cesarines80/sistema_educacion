@@ -18,7 +18,7 @@ class Role
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'roles')]
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'userRoles')]
     private Collection $users;
 
     public function __construct()
@@ -55,7 +55,7 @@ class Role
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
-            $user->addRole($this);
+            $user->addUserRole($this);
         }
 
         return $this;
@@ -64,7 +64,7 @@ class Role
     public function removeUser(User $user): static
     {
         if ($this->users->removeElement($user)) {
-            $user->removeRole($this);
+            $user->removeUserRole($this);
         }
 
         return $this;

@@ -21,8 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
-    #[ORM\Column]
-    private array $roles = [];
+
 
     /**
      * @var string The hashed password
@@ -33,8 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $role = null; // ROLE_ADMIN or ROLE_STUDENT
+
 
     #[ORM\OneToOne(mappedBy: 'user', targetEntity: Student::class)]
     private ?Student $student = null;
@@ -83,19 +81,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+        $roles = $this->userRoles->map(function($role){
+            return $role->getName();
+        })->toArray();
+
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): static
-    {
-        $this->roles = $roles;
 
-        return $this;
-    }
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -133,17 +128,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
 
-    public function setRole(string $role): static
-    {
-        $this->role = $role;
-
-        return $this;
-    }
 
     public function getStudent(): ?Student
     {
