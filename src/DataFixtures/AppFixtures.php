@@ -18,12 +18,24 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        // Create roles
+        $adminRole = new \App\Entity\Role();
+        $adminRole->setName('ROLE_ADMIN');
+        $manager->persist($adminRole);
+
+        $studentRole = new \App\Entity\Role();
+        $studentRole->setName('ROLE_STUDENT');
+        $manager->persist($studentRole);
+
+        $teacherRole = new \App\Entity\Role();
+        $teacherRole->setName('ROLE_TEACHER');
+        $manager->persist($teacherRole);
+
         // Create admin user
         $admin = new User();
         $admin->setEmail('admin@example.com');
         $admin->setName('Admin User');
         $admin->setRoles(['ROLE_ADMIN']);
-        $admin->setRole('ROLE_ADMIN');
         $hashedPassword = $this->passwordHasher->hashPassword($admin, 'admin123');
         $admin->setPassword($hashedPassword);
         $manager->persist($admin);
@@ -33,7 +45,6 @@ class AppFixtures extends Fixture
         $student->setEmail('student@example.com');
         $student->setName('Sample Student');
         $student->setRoles(['ROLE_STUDENT']);
-        $student->setRole('ROLE_STUDENT');
         $hashedPassword = $this->passwordHasher->hashPassword($student, 'student123');
         $student->setPassword($hashedPassword);
         $manager->persist($student);
@@ -43,7 +54,6 @@ class AppFixtures extends Fixture
         $teacher->setEmail('teacher@example.com');
         $teacher->setName('Sample Teacher');
         $teacher->setRoles(['ROLE_TEACHER']);
-        $teacher->setRole('ROLE_TEACHER');
         $hashedPassword = $this->passwordHasher->hashPassword($teacher, 'teacher123');
         $teacher->setPassword($hashedPassword);
         $manager->persist($teacher);

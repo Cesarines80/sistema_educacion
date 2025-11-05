@@ -40,12 +40,6 @@ class UserController extends AbstractController
                 $user->setPassword($hashedPassword);
             }
 
-            // Set the roles array based on the selected role
-            $role = $user->getRole();
-            if ($role) {
-                $user->setRoles([$role]);
-            }
-
             $entityManager->persist($user);
             $entityManager->flush();
 

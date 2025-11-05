@@ -21,9 +21,28 @@
             {{ form_errors(form.password.second) }}
         </div>
         <div class="form-group">
-            {{ form_label(form.role) }}
-            {{ form_widget(form.role, {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form.role) }}
+            <label for="user_roles">Roles</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="user_roles_0" name="user[roles][]" value="ROLE_ADMIN" {% if 'ROLE_ADMIN' in form.roles.vars.value %}checked{% endif %}>
+                        <label class="form-check-label" for="user_roles_0">Administrador</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="user_roles_1" name="user[roles][]" value="ROLE_STUDENT" {% if 'ROLE_STUDENT' in form.roles.vars.value %}checked{% endif %}>
+                        <label class="form-check-label" for="user_roles_1">Estudiante</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="user_roles_2" name="user[roles][]" value="ROLE_TEACHER" {% if 'ROLE_TEACHER' in form.roles.vars.value %}checked{% endif %}>
+                        <label class="form-check-label" for="user_roles_2">Profesor</label>
+                    </div>
+                </div>
+            </div>
+            {{ form_errors(form.roles) }}
         </div>
     </div>
     <div class="card-footer">

@@ -40,13 +40,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'user', targetEntity: Teacher::class)]
     private ?Teacher $teacher = null;
 
-    #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users')]
-    #[ORM\JoinTable(name: 'user_role')]
-    private Collection $userRoles;
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
 
     public function __construct()
     {
-        $this->userRoles = new ArrayCollection();
+        $this->roles = ['ROLE_USER'];
     }
 
     public function getId(): ?int
@@ -81,13 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->userRoles->map(function($role){
-            return $role->getName();
-        })->toArray();
-
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return array_unique(array_merge($this->roles, ['ROLE_USER']));
     }
 
 
@@ -154,26 +147,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Role>
-     */
-    public function getUserRoles(): Collection
+    public function setRoles(array $roles): static
     {
-        return $this->userRoles;
-    }
-
-    public function addUserRole(Role $userRole): static
-    {
-        if (!$this->userRoles->contains($userRole)) {
-            $this->userRoles->add($userRole);
-        }
-
-        return $this;
-    }
-
-    public function removeUserRole(Role $userRole): static
-    {
-        $this->userRoles->removeElement($userRole);
+        $this->roles = $roles;
 
         return $this;
     }

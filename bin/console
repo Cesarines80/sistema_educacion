@@ -29,6 +29,6 @@ if ($input->hasParameterOption('--no-debug', true)) {
 
 require dirname(__DIR__).'/config/bootstrap.php';
 
-$kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG']);
+$kernel = new Kernel($_SERVER['APP_ENV'] ?? 'prod', (bool) ($_SERVER['APP_DEBUG'] ?? false));
 $application = new Application($kernel);
 $application->run($input);
