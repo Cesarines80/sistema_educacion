@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Student;
-use App\Entity\AcademicGrade;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,20 +32,7 @@ class StudentType extends AbstractType
                 'label' => 'Fecha de Nacimiento',
                 'widget' => 'single_text',
             ])
-            ->add('academicGrade', EntityType::class, [
-                'class' => AcademicGrade::class,
-                'choice_label' => 'name',
-                'label' => 'Grado Académico',
-                'placeholder' => 'Seleccione un grado académico',
-            ])
-            ->add('subjects', EntityType::class, [
-                'class' => \App\Entity\Subject::class,
-                'choice_label' => 'name',
-                'label' => 'Materias',
-                'multiple' => true,
-                'expanded' => true,
-                'required' => false,
-            ])
+           
         ;
     }
 

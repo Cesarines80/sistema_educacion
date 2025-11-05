@@ -25,10 +25,6 @@ class TeacherType extends AbstractType
                 'label' => 'Teléfono',
                 'required' => false,
             ])
-            ->add('specialty', TextType::class, [
-                'label' => 'Especialidad',
-                'required' => false,
-            ])
         ;
     }
 

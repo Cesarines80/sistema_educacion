@@ -27,13 +27,11 @@ class SubjectType extends AbstractType
             ->add('credits', IntegerType::class, [
                 'label' => 'Créditos',
             ])
-            ->add('academicGrades', EntityType::class, [
+            ->add('academicGrade', EntityType::class, [
                 'class' => AcademicGrade::class,
                 'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true,
-                'label' => 'Grados Académicos',
-                'required' => false,
+                'label' => 'Grado Académico',
+                'placeholder' => 'Seleccione un grado académico',
             ])
         ;
     }

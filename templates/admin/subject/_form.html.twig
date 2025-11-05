@@ -21,6 +21,13 @@
         </div>
     </div>
     <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{ form_label(form.academicGrade) }}</label>
+        <div class="col-sm-10">
+            {{ form_widget(form.academicGrade, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.academicGrade) }}
+        </div>
+    </div>
+    <div class="form-group row">
         <div class="offset-sm-2 col-sm-10">
             <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
         </div>

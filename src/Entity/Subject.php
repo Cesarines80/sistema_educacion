@@ -27,9 +27,8 @@ class Subject
     #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Section::class)]
     private Collection $sections;
 
-    #[ORM\ManyToMany(targetEntity: AcademicGrade::class, inversedBy: 'subjects')]
-    #[ORM\JoinTable(name: 'academic_grade_subject')]
-    private Collection $academicGrades;
+    #[ORM\ManyToOne(targetEntity: AcademicGrade::class, inversedBy: 'subjects')]
+    private ?AcademicGrade $academicGrade = null;
 
     #[ORM\ManyToMany(targetEntity: Teacher::class, mappedBy: 'subjects')]
     private Collection $teachers;
@@ -40,7 +39,6 @@ class Subject
     public function __construct()
     {
         $this->sections = new ArrayCollection();
-        $this->academicGrades = new ArrayCollection();
         $this->teachers = new ArrayCollection();
         $this->students = new ArrayCollection();
     }
@@ -116,26 +114,14 @@ class Subject
         return $this;
     }
 
-    /**
-     * @return Collection<int, AcademicGrade>
-     */
-    public function getAcademicGrades(): Collection
+    public function getAcademicGrade(): ?AcademicGrade
     {
-        return $this->academicGrades;
+        return $this->academicGrade;
     }
 
-    public function addAcademicGrade(AcademicGrade $academicGrade): static
+    public function setAcademicGrade(?AcademicGrade $academicGrade): static
     {
-        if (!$this->academicGrades->contains($academicGrade)) {
-            $this->academicGrades->add($academicGrade);
-        }
-
-        return $this;
-    }
-
-    public function removeAcademicGrade(AcademicGrade $academicGrade): static
-    {
-        $this->academicGrades->removeElement($academicGrade);
+        $this->academicGrade = $academicGrade;
 
         return $this;
     }

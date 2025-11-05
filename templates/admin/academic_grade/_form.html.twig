@@ -15,24 +15,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="form-group">
-                {{ form_label(form.subjects) }}
-                <div class="row">
-                    {% for subject in form.subjects %}
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                {{ form_widget(subject, {'attr': {'class': 'form-check-input'}}) }}
-                                {{ form_label(subject, null, {'label_attr': {'class': 'form-check-label'}}) }}
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                {{ form_errors(form.subjects) }}
-            </div>
-        </div>
-    </div>
+
     <div class="row">
         <div class="col-12">
             <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>

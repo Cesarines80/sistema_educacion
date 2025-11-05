@@ -21,7 +21,7 @@ class AcademicGrade
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToMany(targetEntity: Subject::class, mappedBy: 'academicGrades')]
+    #[ORM\OneToMany(mappedBy: 'academicGrade', targetEntity: Subject::class)]
     private Collection $subjects;
 
     #[ORM\OneToMany(mappedBy: 'academicGrade', targetEntity: Student::class)]
@@ -74,7 +74,7 @@ class AcademicGrade
     {
         if (!$this->subjects->contains($subject)) {
             $this->subjects->add($subject);
-            $subject->addAcademicGrade($this);
+            $subject->setAcademicGrade($this);
         }
 
         return $this;
@@ -83,7 +83,10 @@ class AcademicGrade
     public function removeSubject(Subject $subject): static
     {
         if ($this->subjects->removeElement($subject)) {
-            $subject->removeAcademicGrade($this);
+            // set the owning side to null (unless already changed)
+            if ($subject->getAcademicGrade() === $this) {
+                $subject->setAcademicGrade(null);
+            }
         }
 
         return $this;
