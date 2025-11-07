@@ -1,7 +1,5 @@
-# TODO: Cambiar Relación Subject-AcademicGrade a ManyToOne
-
-- [ ] Actualizar entidad Subject para ManyToOne con AcademicGrade
-- [ ] Actualizar entidad AcademicGrade para OneToMany con Subject
-- [ ] Actualizar SubjectType form para selección única de AcademicGrade
-- [ ] Actualizar plantilla _form.html.twig para selección única
-- [ ] Crear y ejecutar migración de base de datos
+- [ ] Update Subject entity to ManyToMany relationship with AcademicGrade
+- [ ] Update AcademicGrade entity to ManyToMany relationship with Subject
+- [ ] Update SubjectType form to handle multiple academic grades
+- [ ] Generate and run Doctrine migration for schema changes
+- [ ] Clear Symfony cache to resolve template compilation issues
